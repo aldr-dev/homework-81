@@ -4,6 +4,7 @@ import ContentCutIcon from '@mui/icons-material/ContentCut';
 import React, {useState} from 'react';
 import {toast} from 'react-toastify';
 import axiosApi from '../../axiosApi';
+import {ShortenResponse} from '../../types';
 
 const ShortenForm = () => {
   const [originalUrl, setOriginalUrl] = useState<string>('');
@@ -20,9 +21,10 @@ const ShortenForm = () => {
 
       if (originalUrl.trim().length !== 0) {
         setIsLoading(true);
-        await axiosApi.post<string>('/shorters', originalUrl);
+       const response = await axiosApi.post<ShortenResponse>('/shorters', {originalUrl});
         setIsLoading(false);
-        setShortUrl('');
+        setShortUrl(response.data.shortUrl);
+        setOriginalUrl('');
       }
     } catch (error) {
       toast.error('Error, failed to shorten url');
@@ -39,6 +41,7 @@ const ShortenForm = () => {
             <TextField
               onChange={onFieldChange}
               label="Enter URL here"
+              value={originalUrl}
               id="shorten"
               required
             />
@@ -58,7 +61,7 @@ const ShortenForm = () => {
       {shortUrl.length > 0 ? (
         <>
           <Typography sx={{mt: 4, mb: 4, textAlign: 'center', fontWeight: '600'}}>Your link now looks like this:</Typography>
-          <Link href={`http://localhost:8000/${shortUrl}`} sx={{display: 'block', textAlign: 'center', color: '#3364A0'}}>http://localhost:8000/{shortUrl}</Link>
+          <Link href={`http://localhost:8000/shorters/${shortUrl}`} sx={{display: 'block', textAlign: 'center', color: '#3364A0'}}>http://localhost:8000/{shortUrl}</Link>
         </>
       ) : null}
     </>
