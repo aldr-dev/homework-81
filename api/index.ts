@@ -9,7 +9,7 @@ const port = 8000;
 
 app.use(cors(config.corsOptions));
 app.use(express.json());
-app.use('/', shortersRouter);
+app.use('/shorters', shortersRouter);
 
 const run = async () => {
   await mongoose.connect(config.mongoose.db);
