@@ -21,7 +21,7 @@ const ShortenForm = () => {
 
       if (originalUrl.trim().length !== 0) {
         setIsLoading(true);
-       const response = await axiosApi.post<ShortenResponse>('/shorters', {originalUrl});
+        const response = await axiosApi.post<ShortenResponse>('/links', {originalUrl});
         setIsLoading(false);
         setShortUrl(response.data.shortUrl);
         setOriginalUrl('');
@@ -61,7 +61,7 @@ const ShortenForm = () => {
       {shortUrl.length > 0 ? (
         <>
           <Typography sx={{mt: 4, mb: 4, textAlign: 'center', fontWeight: '600'}}>Your link now looks like this:</Typography>
-          <Link href={`http://localhost:8000/shorters/${shortUrl}`} sx={{display: 'block', textAlign: 'center', color: '#3364A0'}}>http://localhost:8000/{shortUrl}</Link>
+          <Link href={`http://localhost:8000/links/${shortUrl}`} sx={{display: 'block', textAlign: 'center', color: '#3364A0'}}>http://localhost:8000/{shortUrl}</Link>
         </>
       ) : null}
     </>

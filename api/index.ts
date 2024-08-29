@@ -2,14 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import config from './config';
 import * as mongoose from 'mongoose';
-import shortersRouter from './routers/shorters';
+import linksRouter from './routers/links';
 
 const app = express();
 const port = 8000;
 
 app.use(cors(config.corsOptions));
 app.use(express.json());
-app.use('/shorters', shortersRouter);
+app.use('/links', linksRouter);
 
 const run = async () => {
   await mongoose.connect(config.mongoose.db);

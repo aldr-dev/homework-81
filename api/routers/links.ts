@@ -3,11 +3,10 @@ import Shorter from '../models/Shorter';
 import {generateShortUrl} from '../helpers/constants';
 import {UrlData} from '../types';
 import mongoose from 'mongoose';
-import config from '../config';
 
-const shortersRouter = express.Router();
+const linksRouter = express.Router();
 
-shortersRouter.get('/:shortUrl', async (req, res, next) => {
+linksRouter.get('/:shortUrl', async (req, res, next) => {
   try {
     const shortUrl = req.params.shortUrl;
     const url = await Shorter.findOne({shortUrl});
@@ -22,8 +21,7 @@ shortersRouter.get('/:shortUrl', async (req, res, next) => {
   }
 });
 
-
-shortersRouter.post('/',  async (req, res, next) => {
+linksRouter.post('/',  async (req, res, next) => {
   try {
     const originalUrl = req.body.originalUrl;
     const shortUrl = generateShortUrl();
@@ -51,4 +49,4 @@ shortersRouter.post('/',  async (req, res, next) => {
   }
 });
 
-export default shortersRouter;
+export default linksRouter;
