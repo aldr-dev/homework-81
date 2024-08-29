@@ -18,4 +18,9 @@ shortersRouter.get('/:shortUrl', async (req, res, next) => {
   }
 });
 
+
+shortersRouter.post('/', (req, res, next) => {
+
+});
+
 export default shortersRouter;
